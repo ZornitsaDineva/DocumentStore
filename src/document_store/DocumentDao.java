@@ -1,6 +1,7 @@
 package document_store;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -14,7 +15,8 @@ public class DocumentDao {
 	MongoCollection<Document> collection = database.getCollection("Docs");
 
 	public Document getDocumentByChecksum(String checksum) {
-		Document document = collection.find(Filters.eq("Checksum", checksum)).first();
+		Bson filter = Filters.eq("Checksum", checksum);
+		Document document = collection.find(filter).first();
 		return document;
 	}
 
